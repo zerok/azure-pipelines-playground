@@ -25,7 +25,7 @@ jobs:
       - task: CopyFiles@2
         inputs:
           contents: '$(modulePath)/services/something-in-go/something-in-go'
-          targetFolder: '$(Build.ArtifactStagingDirectory)'
+          targetFolder: '$(system.defaultWorkingDirectory)'
   - job: nodejs_service
     pool:
       vmImage: 'Ubuntu 16.04'
@@ -46,6 +46,15 @@ jobs:
       - nodejs_service
       - go_service
     steps:
+      - task: CopyFiles@2
+          inputs:
+            contents: '$(system.defaultWorkingDirectory)/something-in-go'
+            targetFolder: '$(Build.ArtifactStagingDirectory)'
+      - task: CopyFiles@2
+          inputs:
+            sourceFolder: '$(system.defaultWorkingDirectory)'
+            contents: 'services/something-in-nodejs/**'
+            targetFolder: '$(Build.ArtifactStagingDirectory)'
       - task: PublishBuildArtifacts@1
         inputs:
           pathToPublish: '$(Build.ArtifactStagingDirectory)'
