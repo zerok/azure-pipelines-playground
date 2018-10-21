@@ -24,7 +24,7 @@ jobs:
         displayName: "Build"
       - task: PublishBuildArtifacts@1
         inputs:
-          pathToPublish: 'services/something-in-go/something-in-go'
+          pathtoPublish: '$(modulePath)/services/something-in-go/something-in-go'
           name: 'something-in-go'
   - job: nodejs_service
     pool:
@@ -39,7 +39,7 @@ jobs:
         workingDirectory: '$(system.defaultWorkingDirectory)/services/something-in-nodejs'
       - task: PublishBuildArtifacts@1
         inputs:
-          pathToPublish: 'services/something-in-nodejs'
+          pathtoPublish: 'services/something-in-nodejs'
           name: 'something-in-nodejs'
   - job: publish_artifact
     dependsOn:
