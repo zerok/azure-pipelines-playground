@@ -1,16 +1,25 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+jobs:
+  - name: Go service
 
-pool:
-  vmImage: 'Ubuntu 16.04'
+    pool:
+      vmImage: 'Ubuntu 16.04'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+    variables:
+      GOPATH: '$(system.defaultWorkingDirectory)/gopath'
+      GOROOT: '/usr/local/go1.11'
+      modulePath: '$(GOPATH)/src/github.com/$(build.repository.name)'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    steps:
+      - task: GoTool@0
+        version: 1.11
+      - displayName: Set Go environment up
+        script: |
+          mkdir -p '$(GOPATH)/pkg'
+          mkdir -p '$(GOPATH)/src'
+          shopt -s extglob
+          mv !(gopath) $(modulePath)
+      - displayName: Build
+        script: |
+          go build 
+        workingDirectory: '$(modulePath)/services/something-in-go'
+
