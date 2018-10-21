@@ -46,11 +46,11 @@ jobs:
       - nodejs_service
       - go_service
     steps:
-      - task: DownloadBuildArtifact@0
+      - task: DownloadBuildArtifacts@0
         inputs:
           artifactName: something-in-nodejs
           downloadPath: '$(Build.ArtifactStagingDirectory)'
-      - task: DownloadBuildArtifact@0
+      - task: DownloadBuildArtifacts@0
         inputs:
           artifactName: something-in-go
           downloadPath: '$(Build.ArtifactStagingDirectory)'
