@@ -47,6 +47,8 @@ jobs:
       - go_service
     steps:
       - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: '$(Build.ArtifactStagingDirectory)'
 
 
 
