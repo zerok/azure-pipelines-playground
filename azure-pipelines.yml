@@ -25,7 +25,7 @@ jobs:
       - task: PublishBuildArtifacts@1
         inputs:
           pathtoPublish: '$(modulePath)/services/something-in-go/something-in-go'
-          name: 'something-in-go'
+          artifactName: 'something-in-go'
   - job: nodejs_service
     pool:
       vmImage: 'Ubuntu 16.04'
@@ -40,7 +40,7 @@ jobs:
       - task: PublishBuildArtifacts@1
         inputs:
           pathtoPublish: 'services/something-in-nodejs'
-          name: 'something-in-nodejs'
+          artifactName: 'something-in-nodejs'
   - job: publish_artifact
     dependsOn:
       - nodejs_service
