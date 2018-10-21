@@ -22,6 +22,10 @@ jobs:
           go build 
         workingDirectory: '$(modulePath)/services/something-in-go'
         displayName: "Build"
+      - task: CopyFiles@2
+        inputs:
+          contents: '$(modulePath)/services/something-in-go/something-in-go'
+          targetFolder: '$(Build.ArtifactStagingDirectory)'
   - job: nodejs_service
     pool:
       vmImage: 'Ubuntu 16.04'
@@ -33,4 +37,8 @@ jobs:
           yarn
         displayName: "Install dependencies"
         workingDirectory: '$(system.defaultWorkingDirectory)/services/something-in-nodejs'
+      - task: CopyFiles@2
+        inputs:
+          contents: 'services/something-in-nodejs/**'
+          targetFolder: '$(Build.ArtifactStagingDirectory)'
 
