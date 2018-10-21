@@ -6,7 +6,7 @@ jobs:
 
     variables:
       GOPATH: '$(system.defaultWorkingDirectory)/gopath'
-      GOROOT: '/usr/local/go1.11'
+      GOROOT: '/opt/hostedtoolcache/go/1.11.0'
       modulePath: '$(GOPATH)/src/github.com/$(build.repository.name)'
 
     steps:
@@ -14,6 +14,8 @@ jobs:
         inputs:
           version: 1.11
       - script: |
+          echo $PWD
+          find .
           mkdir -p '$(GOPATH)/pkg'
           mkdir -p '$(GOPATH)/src'
           shopt -s extglob
