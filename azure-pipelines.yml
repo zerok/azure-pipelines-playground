@@ -22,10 +22,10 @@ jobs:
           go build 
         workingDirectory: '$(modulePath)/services/something-in-go'
         displayName: "Build"
-      - task: CopyFiles@2
+      - task: PublishBuildArtifacts@1
         inputs:
-          contents: '$(modulePath)/services/something-in-go/something-in-go'
-          targetFolder: '$(system.defaultWorkingDirectory)'
+          pathToPublish: 'services/something-in-go/something-in-go'
+          name: 'something-in-go'
   - job: nodejs_service
     pool:
       vmImage: 'Ubuntu 16.04'
@@ -37,24 +37,23 @@ jobs:
           yarn
         displayName: "Install dependencies"
         workingDirectory: '$(system.defaultWorkingDirectory)/services/something-in-nodejs'
-      - task: CopyFiles@2
+      - task: PublishBuildArtifacts@1
         inputs:
-          contents: 'services/something-in-nodejs/**'
-          targetFolder: '$(Build.ArtifactStagingDirectory)'
+          pathToPublish: 'services/something-in-nodejs'
+          name: 'something-in-nodejs'
   - job: publish_artifact
     dependsOn:
       - nodejs_service
       - go_service
     steps:
-      - task: CopyFiles@2
+      - task: DownloadBuildArtifact@0
         inputs:
-          contents: '$(system.defaultWorkingDirectory)/something-in-go'
-          targetFolder: '$(Build.ArtifactStagingDirectory)'
-      - task: CopyFiles@2
+          artifactName: something-in-nodejs
+          downloadPath: '$(Build.ArtifactStagingDirectory)'
+      - task: DownloadBuildArtifact@0
         inputs:
-          sourceFolder: '$(system.defaultWorkingDirectory)'
-          contents: 'services/something-in-nodejs/**'
-          targetFolder: '$(Build.ArtifactStagingDirectory)'
+          artifactName: something-in-go
+          downloadPath: '$(Build.ArtifactStagingDirectory)'
       - task: PublishBuildArtifacts@1
         inputs:
           pathToPublish: '$(Build.ArtifactStagingDirectory)'
