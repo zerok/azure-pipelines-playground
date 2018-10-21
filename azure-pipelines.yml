@@ -1,14 +1,11 @@
 jobs:
   - job: go_service
-
     pool:
       vmImage: 'Ubuntu 16.04'
-
     variables:
       GOPATH: '$(system.defaultWorkingDirectory)/gopath'
       GOROOT: '/opt/hostedtoolcache/go/1.11.0'
       modulePath: '$(GOPATH)/src/github.com/$(build.repository.name)'
-
     steps:
       - task: GoTool@0
         inputs:
@@ -25,4 +22,15 @@ jobs:
           go build 
         workingDirectory: '$(modulePath)/services/something-in-go'
         displayName: "Build"
+  - job: nodejs_service
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '10.x'
+      - script: |
+          yarn
+        displayName: "Install dependencies"
+        workingDirectory: '$(system.defaultWorkingDirectory)/services/something-in-nodejs'
 
