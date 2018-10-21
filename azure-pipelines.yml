@@ -17,7 +17,7 @@ jobs:
           echo $PWD
           find .
           mkdir -p '$(GOPATH)/pkg'
-          mkdir -p '$(GOPATH)/src'
+          mkdir -p '$(modulePath)'
           shopt -s extglob
           mv !(gopath) $(modulePath)
         displayName: "Setup"
