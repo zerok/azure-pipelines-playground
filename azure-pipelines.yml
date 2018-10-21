@@ -47,14 +47,14 @@ jobs:
       - go_service
     steps:
       - task: CopyFiles@2
-          inputs:
-            contents: '$(system.defaultWorkingDirectory)/something-in-go'
-            targetFolder: '$(Build.ArtifactStagingDirectory)'
+        inputs:
+          contents: '$(system.defaultWorkingDirectory)/something-in-go'
+          targetFolder: '$(Build.ArtifactStagingDirectory)'
       - task: CopyFiles@2
-          inputs:
-            sourceFolder: '$(system.defaultWorkingDirectory)'
-            contents: 'services/something-in-nodejs/**'
-            targetFolder: '$(Build.ArtifactStagingDirectory)'
+        inputs:
+          sourceFolder: '$(system.defaultWorkingDirectory)'
+          contents: 'services/something-in-nodejs/**'
+          targetFolder: '$(Build.ArtifactStagingDirectory)'
       - task: PublishBuildArtifacts@1
         inputs:
           pathToPublish: '$(Build.ArtifactStagingDirectory)'
