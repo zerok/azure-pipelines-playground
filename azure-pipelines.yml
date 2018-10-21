@@ -41,4 +41,12 @@ jobs:
         inputs:
           contents: 'services/something-in-nodejs/**'
           targetFolder: '$(Build.ArtifactStagingDirectory)'
+  - job: publish_artifact
+    dependsOn:
+      - nodejs_service
+      - go_service
+    steps:
+      - task: PublishBuildArtifacts@1
+
+
 
