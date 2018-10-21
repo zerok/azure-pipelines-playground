@@ -57,6 +57,11 @@ jobs:
       - task: PublishBuildArtifacts@1
         inputs:
           pathToPublish: '$(Build.ArtifactStagingDirectory)'
+          artifactName: 'combined-build'
+      - task: PublishPipelineArtifact@0
+        inputs:
+          targetFolder: '$(Build.ArtifactStagingDirectory)'
+          artifactName: 'combined-pipeline'
 
 
 
