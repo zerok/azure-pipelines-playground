@@ -1,5 +1,5 @@
 jobs:
-  - job: Go service
+  - job: go_service
 
     pool:
       vmImage: 'Ubuntu 16.04'
