@@ -13,14 +13,14 @@ jobs:
       - task: GoTool@0
         inputs:
           version: 1.11
-      - displayName: Set Go environment up
-        script: |
+      - script: |
           mkdir -p '$(GOPATH)/pkg'
           mkdir -p '$(GOPATH)/src'
           shopt -s extglob
           mv !(gopath) $(modulePath)
-      - displayName: Build
-        script: |
+        displayName: "Setup"
+      - script: |
           go build 
         workingDirectory: '$(modulePath)/services/something-in-go'
+        displayName: "Build"
 
